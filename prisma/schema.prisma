@@ -43,6 +43,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  following     Follow[] @relation("following")
+  followed      Follow[] @relation("followed")
 }
 
 model VerificationToken {
@@ -51,4 +53,12 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Follow {
+  id            String    @id @default(cuid())
+  following     User @relation("following", references: [id], fields: [followingId], onDelete: Cascade)
+  followingId   String
+  followed      User @relation("followed", references: [id], fields: [followedId], onDelete: Cascade)
+  followedId    String
 }
