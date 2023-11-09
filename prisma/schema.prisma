@@ -45,6 +45,9 @@ model User {
   sessions      Session[]
   following     Follow[] @relation("following")
   followed      Follow[] @relation("followed")
+  posts         Post[]
+  likes         Like[]
+  replies       Reply[]
 }
 
 model VerificationToken {
@@ -61,4 +64,32 @@ model Follow {
   followingId   String
   followed      User @relation("followed", references: [id], fields: [followedId], onDelete: Cascade)
   followedId    String
+}
+
+model Post {
+  id            String    @id @default(cuid())
+  user          User @relation(references: [id], fields: [userId])
+  userId        String
+  content       String
+  created_at    DateTime @default(now())
+  likes         Like[]
+  replies       Reply[]
+}
+
+model Like {
+  id String @id @default(cuid())
+  post Post @relation(references: [id], fields: [postId], onDelete: Cascade)
+  postId String
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+  userId String
+}
+
+model Reply {
+  id String @id @default(cuid())
+  post Post @relation(references: [id], fields: [postId], onDelete: Cascade)
+  postId String
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+  userId String
+  content String
+  created_at DateTime @default(now())
 }

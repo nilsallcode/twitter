@@ -20,7 +20,7 @@ export default async function AppLayout ({
             <div>
                 <Navigation />
             </div>
-            <div className="col-span-2 border-x-2 border-gray-300 h-screen">
+            <div className="col-span-2 border-x-2 border-gray-300 min-h-screen h-full">
                 {children}
             </div>
             <div>

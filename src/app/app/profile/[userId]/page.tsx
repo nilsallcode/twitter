@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { redirect, useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Post from "@/components/Post";
 
 export default function Profile () {
 
@@ -12,6 +13,11 @@ export default function Profile () {
     const user = useQuery({
         queryKey: ['user', params.userId],
         queryFn: () => api.getUser(params.userId as string)
+    });
+
+    const posts = useQuery({
+        queryKey: ['posts', params.userId],
+        queryFn: () => api.getUserPosts(params.userId as string)
     });
 
     const followUser = useMutation({
@@ -55,6 +61,13 @@ export default function Profile () {
                         )}
                     </div>
                 </div>
+            ) : null}
+            {posts.isSuccess ? (
+                <>
+                    {posts.data.map((post: any, index: any) => (
+                        <Post post={post} key={index} />
+                    ))}
+                </>
             ) : null}
         </>
     );
