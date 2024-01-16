@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Post from "@/components/Post";
 import { useState } from "react";
 import Link from "next/link";
+import PageTitle from "@/components/PageTitle";
 
 export default function PostPage () {
 
@@ -33,6 +34,7 @@ export default function PostPage () {
         <>
             {post.isSuccess ? (
                 <>
+                <PageTitle pageTitle="Post" />
                 <Post post={post.data} />
                 <div className="flex justify-between gap-2 p-4 items-center border-b-2 border-gray-300">
                     <div>

@@ -55,6 +55,19 @@ export async function POST (request: NextRequest, { params }: { params: { postId
             }
         });
 
+        if (post.userId !== requester.id) {
+            await prisma.notification.create({
+                data: {
+                    user: {
+                        connect: {
+                            id: post.userId
+                        }
+                    },
+                    content: requester.name + " has liked your post!"
+                }
+            });
+        }
+
         return NextResponse.json({ message: "Liked post." }, { status: 200 });
     }
 

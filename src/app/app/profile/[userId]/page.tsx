@@ -4,6 +4,7 @@ import api from "@/lib/axios";
 import { redirect, useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Post from "@/components/Post";
+import PageTitle from "@/components/PageTitle";
 
 export default function Profile () {
 
@@ -31,6 +32,7 @@ export default function Profile () {
 
     return (
         <>
+            <PageTitle pageTitle="Profile" />
             {user.isLoading ? <p>Loading...</p> : null}
             {user.isSuccess ? (
                 <div className="flex justify-between p-6 border-b-2 border-gray-300">

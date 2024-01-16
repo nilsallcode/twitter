@@ -36,6 +36,22 @@ const api = {
     replyToPost: async (postId: string, content: { content: string }) => {
         const { data } = await axios.post('/api/reply-to-post/' + postId, content);
         return data;
+    },
+    searchUsers: async (content: { content: string }) => {
+        const { data } = await axios.post('/api/search-users', content);
+        return data;
+    },
+    getNotifications: async () => {
+        const { data } = await axios.get('/api/get-notifications');
+        return data;
+    },
+    readNotifications: async () => {
+        const { data } = await axios.post('/api/read-notifications');
+        return data;
+    },
+    getUnreadNotifications: async () => {
+        const { data } = await axios.get('/api/get-unread-notifications');
+        return data;
     }
 };
 
